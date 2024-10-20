@@ -11,7 +11,7 @@ version: '3'
 
 services:
   nginx-webdav:
-    build: .
+    image: baksili/webdav-server:latest
     container_name: webdav
     restart: unless-stopped
     ports:
@@ -25,6 +25,7 @@ services:
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
       interval: 30s
+
 ```
 
 2. Replace `/path/to/your/data` with the actual path to the directory you want to serve.
