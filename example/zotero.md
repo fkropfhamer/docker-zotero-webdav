@@ -1,4 +1,6 @@
-# Zotero Syncing Across Devices with WebDAV (Docker)
+# Tutorial: Zotero Syncing with WebDAV
+
+> Original Blog Post: [Zotero Syncing Across Devices with WebDAV (Docker)](https://blog.baksili.codes/zotero-webdav)
 
 As a researcher or student, having your Zotero library accessible across all your devices is essential for a seamless workflow. While Zotero's built-in syncing is convenient, setting up a custom WebDAV server offers enhanced flexibility and control. In this article, we'll explore how WebDAV enables smooth Zotero syncing and guide you through the setup process.
 
@@ -66,7 +68,7 @@ Once your server is up and running, configuring Zotero to sync with it is a bree
 4. Input your WebDAV username and password.
 5. Click "Verify Server" to ensure everything's set up correctly.
 
-![Screenshot 2024-10-21 at 19.04.54.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/83c13e14-2a42-409d-8547-7c0b0bbef06b/910efdf8-138e-4f7c-8f09-88f8defb4590/Screenshot_2024-10-21_at_19.04.54.png)
+![image](https://github.com/user-attachments/assets/685ce61f-b4c6-493d-b45d-768f6a6c9fd9)
 
 With these steps, your Zotero library will sync effortlessly using your WebDAV server, keeping your research accessible and organized wherever you are.
 
