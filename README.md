@@ -1,16 +1,32 @@
-# WebDav Server Docker
+# WebDAV Server Docker
 
-A secure, fast, and lightweight WebDav Server, built from the official Nginx image with minimal configuration.
+A secure, fast, and lightweight WebDAV Server, built from the official Nginx image with minimal configuration.
 
 ## How to use this image
 
-1. Create a `docker-compose.yaml` file with the following content:
+### Using `docker run`
+
+```console
+$ docker run -d \
+  --name webdav \
+  -p 80:80 \
+  -v /path/to/your/data:/media/data \
+  -e USERNAME=<your-username> \
+  -e PASSWORD=<your-password> \
+  baksili/webdav-server:latest
+```
+
+Replace `/path/to/your/data` with the actual path to the directory you want to serve, and set the desired `USERNAME` and `PASSWORD` for authentication.
+
+### Using `docker-compose` (recommended)
+
+1. Create a `docker-compose.yaml` file ([example](./docker-compose.yaml)) with the following content:
 
 ```yaml
 version: '3'
 
 services:
-  nginx-webdav:
+  webdav:
     image: baksili/webdav-server:latest
     container_name: webdav
     restart: unless-stopped
@@ -38,14 +54,18 @@ services:
 $ docker-compose up -d
 ```
 
-## Volumes
-- `/media/data` - The directory to be served by WebDav.
+or if you want to build the image yourself, `docker-compose --build -d up`.
 
-## Authentication
-To restrict access to authorized users, define the `USERNAME` and `PASSWORD` environment variables in the `docker-compose.yaml` file.
+#### SSL/TLS Support
+To enable SSL/TLS support, enable the port used:
 
-## SSL/TLS Support
-To enable SSL/TLS support, uncomment the `VIRTUAL_HOST` and `LETSENCRYPT_EMAIL` environment variables in the `docker-compose.yaml` file and provide the appropriate values:
+```yaml
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+```
+
+Uncomment the `VIRTUAL_HOST` and `LETSENCRYPT_EMAIL` environment variables in the `docker-compose.yaml` file and provide the appropriate values:
 
 - `VIRTUAL_HOST`: Your domain name.
 - `LETSENCRYPT_EMAIL`: Your email address for Let's Encrypt certificate generation.
@@ -58,7 +78,19 @@ Uncomment the following line in the `volumes` section to persist the generated S
 
 The container will automatically generate and configure SSL certificates using Certbot and Let's Encrypt.
 
-## Healthcheck
+#### Healthcheck
 The `healthcheck` section in the `docker-compose.yaml` file ensures that the container is running and responsive. It sends an HTTP request to `http://localhost` every 30 seconds to check the container's health.
 
-(Inspired by https://github.com/jbbodart/alpine-nginx-webdav)
+## Use Cases
+
+### Zotero Syncing
+
+WebDAV is an excellent choice for syncing your Zotero library across multiple devices. It offers native file storage, global access, and smooth syncing. Follow the tutorial in [example/zotero.md](example/zotero.md) to set up Zotero syncing with your WebDAV server.
+
+### File Sharing and Collaboration
+
+WebDAV provides a simple and efficient way to share files and collaborate with others. By setting up a WebDAV server, you can create a centralized repository for your team to store and access files from anywhere.
+
+### Backup and Storage
+
+Use WebDAV as a backup solution for your important files. With the ability to access your files remotely, you can ensure that your data is safe and secure, even if your local device fails.
