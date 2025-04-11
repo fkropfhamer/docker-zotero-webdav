@@ -1,4 +1,4 @@
-FROM nginx:1.22.1
+FROM nginx:1.27.4
 
 LABEL maintainer="fkropfhamer"
 
