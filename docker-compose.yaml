@@ -1,6 +1,6 @@
 services:
-  nginx-webdav:
-    image: ghcr.io/fkropfhamer/docker-webdav:main
+  webdav:
+    image: ghcr.io/fkropfhamer/docker-zotero-webdav:main
     container_name: webdav
     restart: unless-stopped
     ports:

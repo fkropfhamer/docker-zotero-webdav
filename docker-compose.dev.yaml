@@ -1,6 +1,6 @@
 services:
   webdav:
-    image: ghcr.io/fkropfhamer/docker-webdav:main
+    image: ghcr.io/fkropfhamer/docker-zotero-webdav:main
     build:
       context: .
       dockerfile: Dockerfile

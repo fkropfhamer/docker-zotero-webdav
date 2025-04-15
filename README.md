@@ -1,6 +1,6 @@
 # WebDAV Server Docker
 
-A secure, fast, and lightweight WebDAV Server, built from the official Nginx image with minimal configuration.
+A secure, fast, and lightweight WebDAV Server, built with lighttpd.
 
 ## How to use this image
 
@@ -10,16 +10,11 @@ A secure, fast, and lightweight WebDAV Server, built from the official Nginx ima
 $ docker run -d \
   --name webdav \
   -p 80:80 \
-  -v /path/to/your/data:/media/data \
+  -v /path/to/your/data:/var/www/html/webdav \
   -e USERNAME=<your-username> \
   -e PASSWORD=<your-password> \
-  ghcr.io/fkropfhamer/docker-webdav:main
+  ghcr.io/fkropfhamer/docker-zotero-webdav:main
 ```
-
-Set file permissions.
-
-`sudo chmod -R 664 /path/to/your/data`
-`sudo chown -R www-data:your-host-username /path/to/your/data`
 
 Replace `/path/to/your/data` with the actual path to the directory you want to serve, and set the desired `USERNAME` and `PASSWORD` for authentication.
 
@@ -30,13 +25,13 @@ Replace `/path/to/your/data` with the actual path to the directory you want to s
 ```yaml
 services:
   webdav:
-    image: ghcr.io/fkropfhamer/docker-webdav:main
+    image: ghcr.io/fkropfhamer/docker-zotero-webdav:main
     container_name: webdav
     restart: unless-stopped
     ports:
       - "80:80/tcp"
     volumes:
-      - "/path/to/your/data:/media/data"
+      - "/path/to/your/data:/var/www/html/webdav"
     environment:
       - USERNAME=<your-username>
       - PASSWORD=<your-password>
