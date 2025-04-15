@@ -1,21 +1,20 @@
-FROM nginx:1.22.1
+FROM alpine:3.21.3
 
 LABEL maintainer="fkropfhamer"
 
 ENV USERNAME=user
 ENV PASSWORD=changeme
 
-RUN apt-get update && \
-    apt-get install -y nginx-extras apache2-utils
+RUN apk add --no-cache lighttpd lighttpd-mod_webdav lighttpd-mod_auth apache2-utils
 
-COPY webdav.conf /etc/nginx/conf.d/default.conf
-RUN rm /etc/nginx/sites-enabled/*
+RUN mkdir -p /var/www/html/webdav \
+    && chown -R lighttpd:lighttpd /var/www/html/webdav
 
-RUN mkdir -p "/media/data"
-RUN chown -R www-data:www-data "/media/data"
-VOLUME /media/data
+COPY lighttpd.conf /etc/lighttpd/lighttpd.conf
+
+EXPOSE 80
 
 COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["lighttpd", "-D", "-f", "/etc/lighttpd/lighttpd.conf"]

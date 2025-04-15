@@ -1,15 +1,15 @@
 services:
-  nginx-webdav:
+  webdav:
     image: ghcr.io/fkropfhamer/docker-webdav:main
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: webdav
     restart: unless-stopped
     ports:
       - "2234:80/tcp"
     volumes:
-      - "/path/to/your/data:/var/www/html/webdav"
-    environment:
-      - USERNAME=<your-username>
-      - PASSWORD=<your-password>
+      - "./data:/var/www/html/webdav"
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]
