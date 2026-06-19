@@ -10,6 +10,9 @@ services:
       - "2234:80/tcp"
     volumes:
       - "./data:/var/www/html/webdav"
+    environment:
+      - USERNAME=user
+      - PASSWORD=password
 
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost"]

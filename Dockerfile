@@ -2,9 +2,6 @@ FROM alpine:3.24.0
 
 LABEL maintainer="fkropfhamer"
 
-ENV USERNAME=user
-ENV PASSWORD=changeme
-
 RUN apk add --no-cache lighttpd lighttpd-mod_webdav lighttpd-mod_auth apache2-utils
 
 RUN mkdir -p /var/www/html/webdav \
